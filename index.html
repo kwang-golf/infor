@@ -9,248 +9,340 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
 
-    body { margin: 0; font-family: 'Noto Sans KR', system-ui, sans-serif; background: #f6f4ee; color: #1f241f; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Noto Sans KR', system-ui, sans-serif; background: #f6f4ee; color: #1f241f; overflow-x: hidden; }
     a { color: inherit; text-decoration: none; }
     a.nav-link:hover { color: #a68a4c; }
     .cta:hover { opacity: 0.88; }
     .card:hover { border-color: #a68a4c; }
+
+    .page { width: 100%; display: flex; flex-direction: column; background: #f6f4ee; }
+    .wrap { max-width: 1160px; margin: 0 auto; }
+
+    /* Header */
+    .site-header { position: sticky; top: 0; z-index: 10; width: 100%; background: rgba(246,244,238,0.96); border-bottom: 1px solid #ded8c6; backdrop-filter: blur(6px); }
+    .header-inner { padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .logo { font-family: 'Noto Serif KR', serif; font-size: 17px; font-weight: 700; color: #1f3d2e; letter-spacing: 0.01em; white-space: nowrap; }
+    .nav-links { display: none; }
+    .cta-header { padding: 9px 16px; background: #a68a4c; color: #fff; border-radius: 999px; font-size: 13px; font-weight: 600; white-space: nowrap; }
+
+    /* Sections */
+    .section { padding: 56px 20px; }
+    .section-alt { background: #efece1; }
+    .section-dark { background: #1f3d2e; }
+    .section-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 32px; }
+    .section-num { font-family: 'Noto Serif KR', serif; font-size: 14px; color: #a68a4c; font-weight: 700; }
+    .section-title { margin: 0; font-family: 'Noto Serif KR', serif; font-size: 24px; color: #1f3d2e; }
+    .section-title.on-dark { color: #ffffff; }
+    .section-lead { margin: 0 0 28px; font-size: 14px; line-height: 1.8; color: #565a52; }
+
+    /* Hero */
+    .hero { padding: 64px 20px 56px; background: #1f3d2e; }
+    .hero-badge { display: inline-block; padding: 6px 14px; border: 1px solid rgba(255,255,255,0.35); border-radius: 999px; font-size: 12px; color: #e9e4d3; letter-spacing: 0.04em; margin-bottom: 20px; }
+    .hero-title { margin: 0 0 16px; font-family: 'Noto Serif KR', serif; font-size: 34px; line-height: 1.35; color: #ffffff; }
+    .hero-desc { margin: 0 0 24px; font-size: 15px; line-height: 1.8; color: #cfd8ce; }
+    .hero-actions { display: flex; flex-direction: column; gap: 10px; }
+    .hero-actions a { text-align: center; padding: 14px 20px; border-radius: 8px; font-size: 14px; font-weight: 700; }
+    .btn-primary { background: #a68a4c; color: #ffffff; }
+    .btn-outline { border: 1px solid rgba(255,255,255,0.4); color: #ffffff; }
+
+    /* Grids: mobile-first, single column by default */
+    .grid { display: grid; gap: 14px; }
+    .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+    .sns-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; }
+
+    /* Pro section */
+    .pro-layout { display: flex; flex-direction: column; gap: 28px; }
+    .pro-photo { width: 100%; height: 260px; border: 1px dashed #b9b199; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: #efece1; color: #8a8368; font-size: 13px; }
+    .pro-name { margin: 0 0 4px; font-family: 'Noto Serif KR', serif; font-size: 22px; color: #1f241f; }
+    .pro-title { margin: 0; font-size: 14px; color: #a68a4c; font-weight: 600; }
+    .pro-facts { display: flex; flex-direction: column; gap: 8px; margin: 16px 0; }
+    .pro-fact { display: flex; gap: 8px; font-size: 14px; line-height: 1.7; color: #3c3f38; }
+    .pro-bio { margin: 0; font-size: 14px; line-height: 1.85; color: #565a52; }
+
+    /* Cards */
+    .who-card, .process-card { display: flex; flex-direction: column; gap: 10px; padding: 22px 20px; border-radius: 14px; }
+    .who-card { background: #ffffff; border: 1px solid #ded8c6; }
+    .process-card { background: #efece1; }
+    .card-title { font-size: 14px; font-weight: 700; color: #1f241f; }
+    .card-text { font-size: 12.5px; line-height: 1.6; color: #565a52; }
+    .process-num { font-family: 'Noto Serif KR', serif; font-size: 22px; color: #a68a4c; font-weight: 700; }
+
+    .program-card { display: flex; flex-direction: column; gap: 16px; padding: 26px 22px; background: #ffffff; border: 1px solid #ded8c6; border-radius: 14px; }
+    .program-head { display: flex; align-items: center; gap: 10px; }
+    .price-row { display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid #e6e1d1; }
+    .price-row.last { border-bottom: none; padding-bottom: 0; }
+    .price-label { font-size: 13px; color: #565a52; }
+    .price-value { font-size: 16px; font-weight: 700; color: #a68a4c; }
+    .price-sub { font-size: 12px; color: #8a8368; }
+    .location-note { display: flex; gap: 14px; align-items: center; padding: 16px 18px; background: #ffffff; border: 1px solid #ded8c6; border-radius: 12px; margin-top: 20px; }
+
+    .policy-card { display: flex; flex-direction: column; gap: 14px; padding: 24px 20px; background: #ffffff; border: 1px solid #ded8c6; border-radius: 14px; }
+    .policy-head { display: flex; align-items: center; gap: 10px; }
+    .policy-title { font-family: 'Noto Serif KR', serif; font-size: 16px; color: #1f241f; }
+    .policy-item { display: flex; gap: 8px; font-size: 13px; line-height: 1.7; color: #3c3f38; }
+
+    .review-card { display: flex; flex-direction: column; gap: 12px; padding: 22px 20px; background: #ffffff; border: 1px solid #ded8c6; border-radius: 14px; }
+    .review-stars { color: #a68a4c; font-size: 13px; }
+    .review-text { margin: 0; font-size: 13px; line-height: 1.7; color: #3c3f38; }
+    .review-meta { font-size: 12px; color: #8a8368; }
+
+    .result-card { display: flex; flex-direction: column; gap: 8px; }
+    .result-photo { height: 200px; border: 1px dashed #b9b199; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: #efece1; color: #8a8368; font-size: 13px; }
+    .result-label { font-size: 12px; color: #8a8368; text-align: center; }
+
+    .channel-card { display: flex; align-items: center; gap: 16px; padding: 20px; background: #1f241f; border-radius: 14px; }
+    .channel-card.soon { background: rgba(31,36,31,0.5); border: 1px dashed #b9b199; }
+    .channel-icon { flex: 0 0 44px; width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+    .channel-name { font-size: 15px; font-weight: 700; color: #ffffff; }
+    .channel-sub { font-size: 12px; color: #c9c6ba; }
+    .sns-item { aspect-ratio: 1 / 1; border: 1px dashed #b9b199; border-radius: 10px; background: #ffffff; display: flex; align-items: center; justify-content: center; color: #8a8368; font-size: 12px; text-align: center; padding: 6px; }
+
+    .faq-item { padding: 18px 20px; background: #efece1; border-radius: 12px; }
+    .faq-q { display: flex; gap: 10px; font-size: 14px; font-weight: 700; color: #1f241f; }
+    .faq-a { display: flex; gap: 10px; margin-top: 8px; font-size: 13px; line-height: 1.7; color: #565a52; }
+
+    .contact-card { display: flex; flex-direction: column; gap: 12px; padding: 22px; border-radius: 14px; }
+    .contact-card.primary { background: #a68a4c; }
+    .contact-card.outline { border: 1px solid rgba(255,255,255,0.25); }
+    .contact-label { font-size: 14px; font-weight: 700; color: #ffffff; }
+    .contact-value { font-size: 13px; color: rgba(255,255,255,0.8); }
+    .map-row { display: flex; flex-direction: column; gap: 16px; padding: 20px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.2); border-radius: 14px; margin-top: 20px; }
+    .map-photo { width: 100%; height: 160px; border: 1px dashed rgba(255,255,255,0.35); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.6); font-size: 12px; }
+
+    .footer { width: 100%; padding: 24px 20px; background: #17281e; }
+    .footer-inner { display: flex; flex-direction: column; gap: 6px; }
+    .footer-text { font-size: 12px; color: #9fa89c; }
+
+    /* Tablet and up */
+    @media (min-width: 640px) {
+      .grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; }
+      .grid-3 { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; }
+      .grid-4 { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
+      .hero-actions { flex-direction: row; }
+      .hero-actions a { flex: 1; }
+      .pro-layout { flex-direction: row; align-items: flex-start; gap: 40px; }
+      .pro-photo { width: 260px; flex: 0 0 260px; height: 320px; }
+      .map-row { flex-direction: row; align-items: center; }
+      .map-photo { width: 200px; flex: 0 0 200px; }
+    }
+
+    /* Desktop */
+    @media (min-width: 1000px) {
+      .section { padding: 88px 32px; }
+      .hero { padding: 120px 32px 100px; }
+      .header-inner { padding: 20px 32px; }
+      .nav-links { display: flex; gap: 24px; align-items: center; }
+      .nav-link { font-size: 14px; font-weight: 500; }
+      .cta-header { padding: 10px 20px; font-size: 14px; }
+      .section-title { font-size: 32px; }
+      .section-lead { font-size: 15px; }
+      .hero-title { font-size: 52px; max-width: 720px; }
+      .hero-desc { font-size: 17px; max-width: 560px; }
+      .hero-actions { display: flex; }
+      .hero-actions a { flex: none; }
+      .grid-4 { grid-template-columns: repeat(4, minmax(0,1fr)); gap: 20px; }
+      .grid-3 { grid-template-columns: repeat(3, minmax(0,1fr)); gap: 20px; }
+      .grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 24px; }
+      .sns-grid { grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; }
+      .pro-photo { width: 320px; flex: 0 0 320px; height: 400px; }
+    }
   
   </style>
 </head>
 <body>
-<div style="width: 100%; box-sizing: border-box; display: flex; flex-direction: column; background: #f6f4ee;">
+<div class="page">
 
   <!-- Header -->
-  <div style="position: sticky; top: 0; z-index: 10; width: 100%; box-sizing: border-box; background: rgba(246,244,238,0.94); border-bottom: 1px solid #ded8c6; backdrop-filter: blur(6px);">
-    <div style="max-width: 1160px; margin: 0 auto; padding: 20px 32px; display: flex; align-items: center; justify-content: space-between;">
-      <a href="#hero" style="font-family: 'Noto Serif KR', serif; font-size: 22px; font-weight: 700; color: #1f3d2e; letter-spacing: 0.02em;">황광태 골프레슨</a>
-      <div style="display: flex; gap: 26px; align-items: center;">
-        <a class="nav-link" href="#pro" style="font-size: 14px; font-weight: 500;">프로 소개</a>
-        <a class="nav-link" href="#programs" style="font-size: 14px; font-weight: 500;">레슨 안내</a>
-        <a class="nav-link" href="#reviews" style="font-size: 14px; font-weight: 500;">후기</a>
-        <a class="nav-link" href="#faq" style="font-size: 14px; font-weight: 500;">FAQ</a>
-        <a class="nav-link" href="#channels" style="font-size: 14px; font-weight: 500;">채널</a>
-        <a class="nav-link" href="#contact" style="font-size: 14px; font-weight: 500;">문의</a>
-        <a href="#contact" class="cta" style="padding: 10px 20px; background: #a68a4c; color: #fff; border-radius: 999px; font-size: 14px; font-weight: 600;">레슨 문의하기</a>
+  <div class="site-header">
+    <div class="header-inner wrap">
+      <a href="#hero" class="logo">황광태 골프레슨</a>
+      <div class="nav-links">
+        <a class="nav-link" href="#pro">프로 소개</a>
+        <a class="nav-link" href="#programs">레슨 안내</a>
+        <a class="nav-link" href="#reviews">후기</a>
+        <a class="nav-link" href="#faq">FAQ</a>
+        <a class="nav-link" href="#channels">채널</a>
       </div>
+      <a href="#contact" class="cta cta-header">레슨 문의</a>
     </div>
   </div>
 
   <!-- Hero -->
-  <div id="hero" style="width: 100%; box-sizing: border-box; background: #1f3d2e; padding: 120px 32px 100px;">
-    <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; align-items: flex-start; gap: 24px;">
-      <div style="padding: 6px 16px; border: 1px solid rgba(255,255,255,0.35); border-radius: 999px; font-size: 13px; color: #e9e4d3; letter-spacing: 0.08em;">KPGA 투어프로 · 1:1 개인 레슨</div>
-      <h1 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 52px; line-height: 1.3; color: #ffffff; max-width: 720px;">황광태 프로<br>개인 레슨 안내</h1>
-      <p style="margin: 0; font-size: 17px; line-height: 1.8; color: #cfd8ce; max-width: 560px;">회원님의 스윙과 고민에 맞춰 30분 / 50분 개인 레슨으로 진행됩니다.<br>원포인트부터 꾸준한 집중 레슨까지, 원하는 방식으로 선택해 주세요!</p>
-      <div style="display: flex; gap: 12px; margin-top: 12px;">
-        <a href="#contact" class="cta" style="padding: 14px 28px; background: #a68a4c; color: #ffffff; border-radius: 8px; font-size: 15px; font-weight: 700;">카카오 오픈채팅으로 문의</a>
-        <a href="#programs" style="padding: 14px 28px; border: 1px solid rgba(255,255,255,0.4); color: #ffffff; border-radius: 8px; font-size: 15px; font-weight: 600;">레슨 가격 보기</a>
+  <div id="hero" class="hero">
+    <div class="wrap">
+      <span class="hero-badge">KPGA 투어프로 · 1:1 개인 레슨</span>
+      <h1 class="hero-title">황광태 프로<br>개인 레슨 안내</h1>
+      <p class="hero-desc">회원님의 스윙과 고민에 맞춰 30분 / 50분 개인 레슨으로 진행됩니다.<br>원포인트부터 꾸준한 집중 레슨까지, 원하는 방식으로 선택해 주세요!</p>
+      <div class="hero-actions">
+        <a href="#contact" class="cta btn-primary">카카오 오픈채팅으로 문의</a>
+        <a href="#programs" class="btn-outline">레슨 가격 보기</a>
       </div>
     </div>
   </div>
 
   <!-- 01. 프로골퍼 소개 -->
-  <div id="pro" style="width: 100%; box-sizing: border-box; padding: 88px 32px;">
-    <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 48px;">
-      <div style="display: flex; align-items: baseline; gap: 14px;">
-        <span style="font-family: 'Noto Serif KR', serif; font-size: 15px; color: #a68a4c; font-weight: 700;">01</span>
-        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 32px; color: #1f3d2e;">프로골퍼 소개</h2>
+  <div id="pro" class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <h2 class="section-title">프로골퍼 소개</h2>
       </div>
-      <div style="display: flex; gap: 56px; align-items: flex-start;">
-        <div style="flex: 0 0 320px; height: 400px; border: 1px dashed #b9b199; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: #efece1; color: #8a8368; font-size: 14px;">[황광태 프로 사진]</div>
-        <div style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
-          <div>
-            <h3 style="margin: 0 0 6px; font-family: 'Noto Serif KR', serif; font-size: 26px; color: #1f241f;">황광태</h3>
-            <p style="margin: 0; font-size: 15px; color: #a68a4c; font-weight: 600;">KPGA 투어프로 No.1721</p>
+      <div class="pro-layout">
+        <div class="pro-photo">[황광태 프로 사진]</div>
+        <div>
+          <h3 class="pro-name">황광태</h3>
+          <p class="pro-title">KPGA 투어프로 No.1721</p>
+          <div class="pro-facts">
+            <div class="pro-fact"><span style="color: #a68a4c;">—</span><span>KPGA(한국프로골프협회) 투어프로 정회원</span></div>
+            <div class="pro-fact"><span style="color: #a68a4c;">—</span><span>[추가 경력 사항 — 대회 성적, 지도 이력 등을 입력하세요]</span></div>
           </div>
-          <div style="display: flex; flex-direction: column; gap: 10px;">
-            <div style="display: flex; gap: 10px; font-size: 15px; line-height: 1.7; color: #3c3f38;">
-              <span style="color: #a68a4c;">—</span>
-              <span>KPGA(한국프로골프협회) 투어프로 정회원</span>
-            </div>
-            <div style="display: flex; gap: 10px; font-size: 15px; line-height: 1.7; color: #3c3f38;">
-              <span style="color: #a68a4c;">—</span>
-              <span>[추가 경력 사항 — 대회 성적, 지도 이력 등을 입력하세요]</span>
-            </div>
-          </div>
-          <p style="margin: 8px 0 0; font-size: 15px; line-height: 1.9; color: #565a52;">안녕하세요 😊 KPGA 투어프로 황광태 프로의 개인 골프레슨 프로그램을 안내드립니다. 회원님의 스윙과 고민에 맞춰 30분 / 50분 개인 레슨으로 진행되며, 원포인트 레슨부터 꾸준한 집중 레슨까지 원하는 방식으로 선택하실 수 있습니다. 즐거운 라운드와 꾸준한 성장을 함께하겠습니다.</p>
+          <p class="pro-bio">안녕하세요 😊 KPGA 투어프로 황광태 프로의 개인 골프레슨 프로그램을 안내드립니다. 회원님의 스윙과 고민에 맞춰 30분 / 50분 개인 레슨으로 진행되며, 원포인트 레슨부터 꾸준한 집중 레슨까지 원하는 방식으로 선택하실 수 있습니다. 즐거운 라운드와 꾸준한 성장을 함께하겠습니다.</p>
         </div>
       </div>
     </div>
   </div>
 
   <!-- 02. 이런 분들께 추천해요 -->
-  <div id="who" style="width: 100%; box-sizing: border-box; padding: 88px 32px; background: #efece1;">
-    <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
-      <div style="display: flex; align-items: baseline; gap: 14px;">
-        <span style="font-family: 'Noto Serif KR', serif; font-size: 15px; color: #a68a4c; font-weight: 700;">02</span>
-        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 32px; color: #1f3d2e;">이런 분들께 추천해요</h2>
+  <div id="who" class="section section-alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <h2 class="section-title">이런 분들께 추천해요</h2>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px;">
-        <div class="card" style="display: flex; flex-direction: column; gap: 12px; padding: 26px 22px; background: #ffffff; border: 1px solid #ded8c6; border-radius: 14px;">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#a68a4c" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
-          <span style="font-size: 15px; font-weight: 700; color: #1f241f;">골프 입문자</span>
-          <span style="font-size: 13px; line-height: 1.6; color: #565a52;">그립부터 스윙 기본기까지 처음부터 차근차근 배우고 싶은 분</span>
+      <div class="grid grid-4">
+        <div class="who-card card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a68a4c" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+          <span class="card-title">골프 입문자</span>
+          <span class="card-text">그립부터 스윙 기본기까지 처음부터 차근차근 배우고 싶은 분</span>
         </div>
-        <div class="card" style="display: flex; flex-direction: column; gap: 12px; padding: 26px 22px; background: #ffffff; border: 1px solid #ded8c6; border-radius: 14px;">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#a68a4c" stroke-width="2"><path d="M4 12h4l3-8 4 16 3-8h2"/></svg>
-          <span style="font-size: 15px; font-weight: 700; color: #1f241f;">스윙 교정이 필요한 분</span>
-          <span style="font-size: 13px; line-height: 1.6; color: #565a52;">고질적인 슬라이스·훅 등 특정 문제를 바로잡고 싶은 분</span>
+        <div class="who-card card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a68a4c" stroke-width="2"><path d="M4 12h4l3-8 4 16 3-8h2"/></svg>
+          <span class="card-title">스윙 교정이 필요한 분</span>
+          <span class="card-text">고질적인 슬라이스·훅 등 특정 문제를 바로잡고 싶은 분</span>
         </div>
-        <div class="card" style="display: flex; flex-direction: column; gap: 12px; padding: 26px 22px; background: #ffffff; border: 1px solid #ded8c6; border-radius: 14px;">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#a68a4c" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
-          <span style="font-size: 15px; font-weight: 700; color: #1f241f;">스코어 향상이 목표인 분</span>
-          <span style="font-size: 13px; line-height: 1.6; color: #565a52;">필드 스코어를 줄이고 싶은 중 · 상급자</span>
+        <div class="who-card card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a68a4c" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
+          <span class="card-title">스코어 향상이 목표인 분</span>
+          <span class="card-text">필드 스코어를 줄이고 싶은 중 · 상급자</span>
         </div>
-        <div class="card" style="display: flex; flex-direction: column; gap: 12px; padding: 26px 22px; background: #ffffff; border: 1px solid #ded8c6; border-radius: 14px;">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#a68a4c" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-          <span style="font-size: 15px; font-weight: 700; color: #1f241f;">라운드 전 점검이 필요한 분</span>
-          <span style="font-size: 13px; line-height: 1.6; color: #565a52;">라운드 전 컨디션과 감을 짧게 점검하고 싶은 분</span>
+        <div class="who-card card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a68a4c" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          <span class="card-title">라운드 전 점검이 필요한 분</span>
+          <span class="card-text">라운드 전 컨디션과 감을 짧게 점검하고 싶은 분</span>
         </div>
       </div>
     </div>
   </div>
 
   <!-- 03. 레슨 진행 과정 -->
-  <div id="process" style="width: 100%; box-sizing: border-box; padding: 88px 32px;">
-    <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
-      <div style="display: flex; align-items: baseline; gap: 14px;">
-        <span style="font-family: 'Noto Serif KR', serif; font-size: 15px; color: #a68a4c; font-weight: 700;">03</span>
-        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 32px; color: #1f3d2e;">레슨 진행 과정</h2>
+  <div id="process" class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <h2 class="section-title">레슨 진행 과정</h2>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px;">
-        <div style="display: flex; flex-direction: column; gap: 12px; padding: 24px 20px; background: #efece1; border-radius: 14px; position: relative;">
-          <span style="font-family: 'Noto Serif KR', serif; font-size: 26px; color: #a68a4c; font-weight: 700;">01</span>
-          <span style="font-size: 15px; font-weight: 700; color: #1f241f;">상담 및 스윙 체크</span>
-          <span style="font-size: 13px; line-height: 1.6; color: #565a52;">현재 스윙과 목표를 함께 확인해요</span>
+      <div class="grid grid-4">
+        <div class="process-card">
+          <span class="process-num">01</span>
+          <span class="card-title">상담 및 스윙 체크</span>
+          <span class="card-text">현재 스윙과 목표를 함께 확인해요</span>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 12px; padding: 24px 20px; background: #efece1; border-radius: 14px;">
-          <span style="font-family: 'Noto Serif KR', serif; font-size: 26px; color: #a68a4c; font-weight: 700;">02</span>
-          <span style="font-size: 15px; font-weight: 700; color: #1f241f;">문제점 진단</span>
-          <span style="font-size: 13px; line-height: 1.6; color: #565a52;">영상 분석으로 원인을 정확히 짚어드려요</span>
+        <div class="process-card">
+          <span class="process-num">02</span>
+          <span class="card-title">문제점 진단</span>
+          <span class="card-text">영상 분석으로 원인을 정확히 짚어드려요</span>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 12px; padding: 24px 20px; background: #efece1; border-radius: 14px;">
-          <span style="font-family: 'Noto Serif KR', serif; font-size: 26px; color: #a68a4c; font-weight: 700;">03</span>
-          <span style="font-size: 15px; font-weight: 700; color: #1f241f;">맞춤 커리큘럼 설계</span>
-          <span style="font-size: 13px; line-height: 1.6; color: #565a52;">회원님의 페이스에 맞춘 훈련 계획을 세워요</span>
+        <div class="process-card">
+          <span class="process-num">03</span>
+          <span class="card-title">맞춤 커리큘럼 설계</span>
+          <span class="card-text">회원님의 페이스에 맞춘 훈련 계획을 세워요</span>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 12px; padding: 24px 20px; background: #efece1; border-radius: 14px;">
-          <span style="font-family: 'Noto Serif KR', serif; font-size: 26px; color: #a68a4c; font-weight: 700;">04</span>
-          <span style="font-size: 15px; font-weight: 700; color: #1f241f;">반복 훈련 · 피드백</span>
-          <span style="font-size: 13px; line-height: 1.6; color: #565a52;">꾸준한 레슨과 피드백으로 완성해요</span>
+        <div class="process-card">
+          <span class="process-num">04</span>
+          <span class="card-title">반복 훈련 · 피드백</span>
+          <span class="card-text">꾸준한 레슨과 피드백으로 완성해요</span>
         </div>
       </div>
     </div>
   </div>
 
   <!-- 04. 레슨 프로그램 소개 (1:1 개인 레슨) -->
-  <div id="programs" style="width: 100%; box-sizing: border-box; padding: 88px 32px; background: #efece1;">
-    <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
-      <div style="display: flex; align-items: baseline; gap: 14px;">
-        <span style="font-family: 'Noto Serif KR', serif; font-size: 15px; color: #a68a4c; font-weight: 700;">04</span>
-        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 32px; color: #1f3d2e;">레슨 프로그램 소개</h2>
+  <div id="programs" class="section section-alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">04</span>
+        <h2 class="section-title">레슨 프로그램 소개</h2>
       </div>
-      <p style="margin: 0; font-size: 15px; line-height: 1.8; color: #565a52; max-width: 720px;">모든 레슨은 <strong style="color: #1f241f;">1:1 개인 레슨</strong>으로만 진행됩니다. 원포인트 레슨과 10회 · 20회 횟수권 중 선택하실 수 있어요.</p>
-      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px;">
-
-        <div class="card" style="display: flex; flex-direction: column; gap: 18px; padding: 32px 28px; background: #ffffff; border: 1px solid #ded8c6; border-radius: 14px;">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 20px;">🏌️</span>
-            <span style="font-family: 'Noto Serif KR', serif; font-size: 20px; color: #1f241f;">30분 개인 레슨</span>
+      <p class="section-lead">모든 레슨은 <strong style="color: #1f241f;">1:1 개인 레슨</strong>으로만 진행됩니다. 원포인트 레슨과 10회 · 20회 횟수권 중 선택하실 수 있어요.</p>
+      <div class="grid grid-2">
+        <div class="program-card card">
+          <div class="program-head">
+            <span style="font-size: 18px;">🏌️</span>
+            <span style="font-family: 'Noto Serif KR', serif; font-size: 18px; color: #1f241f;">30분 개인 레슨</span>
           </div>
-          <div style="display: flex; flex-direction: column; gap: 14px;">
-            <div style="display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid #e6e1d1;">
-              <span style="font-size: 14px; color: #565a52;">원포인트 레슨 (1회)</span>
-              <span style="font-size: 17px; font-weight: 700; color: #a68a4c;">90,000원</span>
+          <div>
+            <div class="price-row"><span class="price-label">원포인트 레슨 (1회)</span><span class="price-value">90,000원</span></div>
+            <div style="padding: 12px 0; border-bottom: 1px solid #e6e1d1;">
+              <div style="display: flex; align-items: baseline; justify-content: space-between;"><span class="price-label">10회 레슨</span><span class="price-value">700,000원</span></div>
+              <span class="price-sub">↳ 회당 70,000원 · 2개월 내 소진</span>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 4px; padding-bottom: 12px; border-bottom: 1px solid #e6e1d1;">
-              <div style="display: flex; align-items: baseline; justify-content: space-between;">
-                <span style="font-size: 14px; color: #565a52;">10회 레슨</span>
-                <span style="font-size: 17px; font-weight: 700; color: #a68a4c;">700,000원</span>
-              </div>
-              <span style="font-size: 13px; color: #8a8368;">↳ 회당 70,000원 · 2개월 내 소진</span>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 4px;">
-              <div style="display: flex; align-items: baseline; justify-content: space-between;">
-                <span style="font-size: 14px; color: #565a52;">20회 레슨</span>
-                <span style="font-size: 17px; font-weight: 700; color: #a68a4c;">1,200,000원</span>
-              </div>
-              <span style="font-size: 13px; color: #8a8368;">↳ 회당 60,000원 · 5개월 내 소진</span>
+            <div style="padding-top: 12px;">
+              <div style="display: flex; align-items: baseline; justify-content: space-between;"><span class="price-label">20회 레슨</span><span class="price-value">1,200,000원</span></div>
+              <span class="price-sub">↳ 회당 60,000원 · 5개월 내 소진</span>
             </div>
           </div>
         </div>
-
-        <div class="card" style="display: flex; flex-direction: column; gap: 18px; padding: 32px 28px; background: #ffffff; border: 1px solid #ded8c6; border-radius: 14px;">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 20px;">🏌️‍♂️</span>
-            <span style="font-family: 'Noto Serif KR', serif; font-size: 20px; color: #1f241f;">50분 개인 레슨</span>
+        <div class="program-card card">
+          <div class="program-head">
+            <span style="font-size: 18px;">🏌️‍♂️</span>
+            <span style="font-family: 'Noto Serif KR', serif; font-size: 18px; color: #1f241f;">50분 개인 레슨</span>
           </div>
-          <div style="display: flex; flex-direction: column; gap: 14px;">
-            <div style="display: flex; align-items: baseline; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid #e6e1d1;">
-              <span style="font-size: 14px; color: #565a52;">원포인트 레슨 (1회)</span>
-              <span style="font-size: 17px; font-weight: 700; color: #a68a4c;">160,000원</span>
+          <div>
+            <div class="price-row"><span class="price-label">원포인트 레슨 (1회)</span><span class="price-value">160,000원</span></div>
+            <div style="padding: 12px 0; border-bottom: 1px solid #e6e1d1;">
+              <div style="display: flex; align-items: baseline; justify-content: space-between;"><span class="price-label">10회 레슨</span><span class="price-value">1,300,000원</span></div>
+              <span class="price-sub">↳ 회당 130,000원 · 3개월 내 소진</span>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 4px; padding-bottom: 12px; border-bottom: 1px solid #e6e1d1;">
-              <div style="display: flex; align-items: baseline; justify-content: space-between;">
-                <span style="font-size: 14px; color: #565a52;">10회 레슨</span>
-                <span style="font-size: 17px; font-weight: 700; color: #a68a4c;">1,300,000원</span>
-              </div>
-              <span style="font-size: 13px; color: #8a8368;">↳ 회당 130,000원 · 3개월 내 소진</span>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 4px;">
-              <div style="display: flex; align-items: baseline; justify-content: space-between;">
-                <span style="font-size: 14px; color: #565a52;">20회 레슨</span>
-                <span style="font-size: 17px; font-weight: 700; color: #a68a4c;">1,800,000원</span>
-              </div>
-              <span style="font-size: 13px; color: #8a8368;">↳ 회당 90,000원 · 6개월 내 소진</span>
+            <div style="padding-top: 12px;">
+              <div style="display: flex; align-items: baseline; justify-content: space-between;"><span class="price-label">20회 레슨</span><span class="price-value">1,800,000원</span></div>
+              <span class="price-sub">↳ 회당 90,000원 · 6개월 내 소진</span>
             </div>
           </div>
         </div>
-
       </div>
-
-      <div style="display: flex; gap: 16px; align-items: center; padding: 20px 24px; background: #ffffff; border: 1px solid #ded8c6; border-radius: 12px;">
-        <span style="font-size: 20px;">📍</span>
+      <div class="location-note">
+        <span style="font-size: 18px;">📍</span>
         <div style="display: flex; flex-direction: column; gap: 2px;">
-          <span style="font-size: 15px; font-weight: 700; color: #1f241f;">레슨 장소 — 고덕 개인스튜디오</span>
-          <span style="font-size: 14px; color: #565a52;">월 · 수 · 금 이용 가능 (별도 스튜디오 이용료 20,000원)</span>
+          <span style="font-size: 14px; font-weight: 700; color: #1f241f;">레슨 장소 — 고덕 개인스튜디오</span>
+          <span style="font-size: 13px; color: #565a52;">월 · 수 · 금 이용 가능 (별도 스튜디오 이용료 20,000원)</span>
         </div>
       </div>
     </div>
   </div>
 
   <!-- 05. 예약 및 환불 안내 -->
-  <div id="policy" style="width: 100%; box-sizing: border-box; padding: 88px 32px;">
-    <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
-      <div style="display: flex; align-items: baseline; gap: 14px;">
-        <span style="font-family: 'Noto Serif KR', serif; font-size: 15px; color: #a68a4c; font-weight: 700;">05</span>
-        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 32px; color: #1f3d2e;">예약 및 이용 안내</h2>
+  <div id="policy" class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">05</span>
+        <h2 class="section-title">예약 및 이용 안내</h2>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px;">
-        <div style="display: flex; flex-direction: column; gap: 16px; padding: 32px 28px; background: #ffffff; border: 1px solid #ded8c6; border-radius: 14px;">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 20px;">📅</span>
-            <span style="font-family: 'Noto Serif KR', serif; font-size: 18px; color: #1f241f;">예약 및 이용 안내</span>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 10px;">
-            <div style="display: flex; gap: 10px; font-size: 14px; line-height: 1.7; color: #3c3f38;"><span style="color: #a68a4c; font-weight: 700;">①</span><span>레슨은 1주일 전 스크린룸 예약이 필요합니다.</span></div>
-            <div style="display: flex; gap: 10px; font-size: 14px; line-height: 1.7; color: #3c3f38;"><span style="color: #a68a4c; font-weight: 700;">②</span><span>예약 취소는 레슨 하루 전까지 가능합니다.</span></div>
-            <div style="display: flex; gap: 10px; font-size: 14px; line-height: 1.7; color: #3c3f38;"><span style="color: #a68a4c; font-weight: 700;">③</span><span>당일 취소 시 1회 레슨이 차감됩니다.</span></div>
-            <div style="display: flex; gap: 10px; font-size: 14px; line-height: 1.7; color: #3c3f38;"><span style="color: #a68a4c; font-weight: 700;">④</span><span>레슨비와 타석비는 별도입니다.</span></div>
-          </div>
+      <div class="grid grid-2">
+        <div class="policy-card">
+          <div class="policy-head"><span style="font-size: 18px;">📅</span><span class="policy-title">예약 및 이용 안내</span></div>
+          <div class="policy-item"><span style="color: #a68a4c; font-weight: 700;">①</span><span>레슨은 1주일 전 스크린룸 예약이 필요합니다.</span></div>
+          <div class="policy-item"><span style="color: #a68a4c; font-weight: 700;">②</span><span>예약 취소는 레슨 하루 전까지 가능합니다.</span></div>
+          <div class="policy-item"><span style="color: #a68a4c; font-weight: 700;">③</span><span>당일 취소 시 1회 레슨이 차감됩니다.</span></div>
+          <div class="policy-item"><span style="color: #a68a4c; font-weight: 700;">④</span><span>레슨비와 타석비는 별도입니다.</span></div>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 16px; padding: 32px 28px; background: #ffffff; border: 1px solid #ded8c6; border-radius: 14px;">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 20px;">💳</span>
-            <span style="font-family: 'Noto Serif KR', serif; font-size: 18px; color: #1f241f;">환불 및 양도 안내</span>
-          </div>
-          <div style="display: flex; flex-direction: column; gap: 10px;">
-            <div style="display: flex; gap: 10px; font-size: 14px; line-height: 1.7; color: #3c3f38;"><span style="color: #a68a4c;">•</span><span>레슨권 양도는 불가하며, 환불은 가능합니다.</span></div>
-            <div style="display: flex; gap: 10px; font-size: 14px; line-height: 1.7; color: #3c3f38;"><span style="color: #a68a4c;">•</span><span>이용한 레슨은 할인 회당 금액이 아닌 원포인트 레슨 정상가를 기준으로 차감 후 환불됩니다.</span></div>
-            <div style="display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; background: #f6f4ee; border-radius: 8px; margin-top: 4px;">
-              <span style="font-size: 13px; color: #565a52;">↳ 30분 레슨 : 이용 회차당 90,000원 차감</span>
-              <span style="font-size: 13px; color: #565a52;">↳ 50분 레슨 : 이용 회차당 160,000원 차감</span>
-            </div>
+        <div class="policy-card">
+          <div class="policy-head"><span style="font-size: 18px;">💳</span><span class="policy-title">환불 및 양도 안내</span></div>
+          <div class="policy-item"><span style="color: #a68a4c;">•</span><span>레슨권 양도는 불가하며, 환불은 가능합니다.</span></div>
+          <div class="policy-item"><span style="color: #a68a4c;">•</span><span>이용한 레슨은 할인 회당 금액이 아닌 원포인트 레슨 정상가를 기준으로 차감 후 환불됩니다.</span></div>
+          <div style="display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; background: #f6f4ee; border-radius: 8px;">
+            <span style="font-size: 12px; color: #565a52;">↳ 30분 레슨 : 이용 회차당 90,000원 차감</span>
+            <span style="font-size: 12px; color: #565a52;">↳ 50분 레슨 : 이용 회차당 160,000원 차감</span>
           </div>
         </div>
       </div>
@@ -258,166 +350,157 @@
   </div>
 
   <!-- 06. 수강생 후기 -->
-  <div id="reviews" style="width: 100%; box-sizing: border-box; padding: 88px 32px; background: #efece1;">
-    <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
-      <div style="display: flex; align-items: baseline; gap: 14px;">
-        <span style="font-family: 'Noto Serif KR', serif; font-size: 15px; color: #a68a4c; font-weight: 700;">06</span>
-        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 32px; color: #1f3d2e;">수강생 후기</h2>
+  <div id="reviews" class="section section-alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">06</span>
+        <h2 class="section-title">수강생 후기</h2>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;">
-        <div style="display: flex; flex-direction: column; gap: 14px; padding: 28px 24px; background: #ffffff; border: 1px solid #ded8c6; border-radius: 14px;">
-          <div style="display: flex; gap: 2px; color: #a68a4c; font-size: 14px;">★★★★★</div>
-          <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #3c3f38; flex-grow: 1;">"[후기 내용을 입력하세요 — 예: 슬라이스가 고쳐져서 라운드가 훨씬 편해졌어요.]"</p>
-          <span style="font-size: 13px; color: #8a8368;">[수강생 이름 / 수강 기간]</span>
+      <div class="grid grid-3">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"[후기 내용을 입력하세요 — 예: 슬라이스가 고쳐져서 라운드가 훨씬 편해졌어요.]"</p>
+          <span class="review-meta">[수강생 이름 / 수강 기간]</span>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 14px; padding: 28px 24px; background: #ffffff; border: 1px solid #ded8c6; border-radius: 14px;">
-          <div style="display: flex; gap: 2px; color: #a68a4c; font-size: 14px;">★★★★★</div>
-          <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #3c3f38; flex-grow: 1;">"[후기 내용을 입력하세요]"</p>
-          <span style="font-size: 13px; color: #8a8368;">[수강생 이름 / 수강 기간]</span>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"[후기 내용을 입력하세요]"</p>
+          <span class="review-meta">[수강생 이름 / 수강 기간]</span>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 14px; padding: 28px 24px; background: #ffffff; border: 1px solid #ded8c6; border-radius: 14px;">
-          <div style="display: flex; gap: 2px; color: #a68a4c; font-size: 14px;">★★★★★</div>
-          <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #3c3f38; flex-grow: 1;">"[후기 내용을 입력하세요]"</p>
-          <span style="font-size: 13px; color: #8a8368;">[수강생 이름 / 수강 기간]</span>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"[후기 내용을 입력하세요]"</p>
+          <span class="review-meta">[수강생 이름 / 수강 기간]</span>
         </div>
       </div>
     </div>
   </div>
 
   <!-- 07. Before & After -->
-  <div id="results" style="width: 100%; box-sizing: border-box; padding: 88px 32px;">
-    <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
-      <div style="display: flex; align-items: baseline; gap: 14px;">
-        <span style="font-family: 'Noto Serif KR', serif; font-size: 15px; color: #a68a4c; font-weight: 700;">07</span>
-        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 32px; color: #1f3d2e;">Before &amp; After</h2>
+  <div id="results" class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">07</span>
+        <h2 class="section-title">Before &amp; After</h2>
       </div>
-      <p style="margin: 0; font-size: 15px; line-height: 1.8; color: #565a52; max-width: 720px;">레슨 전후 스윙 변화를 비교해보세요.</p>
-      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px;">
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-          <div style="height: 260px; border: 1px dashed #b9b199; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: #efece1; color: #8a8368; font-size: 14px;">[Before 스윙 사진/영상]</div>
-          <span style="font-size: 13px; color: #8a8368; text-align: center;">레슨 전</span>
+      <p class="section-lead">레슨 전후 스윙 변화를 비교해보세요.</p>
+      <div class="grid grid-2">
+        <div class="result-card">
+          <div class="result-photo">[Before 스윙 사진/영상]</div>
+          <span class="result-label">레슨 전</span>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-          <div style="height: 260px; border: 1px dashed #b9b199; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: #efece1; color: #8a8368; font-size: 14px;">[After 스윙 사진/영상]</div>
-          <span style="font-size: 13px; color: #8a8368; text-align: center;">레슨 후</span>
+        <div class="result-card">
+          <div class="result-photo">[After 스윙 사진/영상]</div>
+          <span class="result-label">레슨 후</span>
         </div>
       </div>
     </div>
   </div>
 
   <!-- 08. 유튜브, 인스타그램 -->
-  <div id="channels" style="width: 100%; box-sizing: border-box; padding: 88px 32px; background: #efece1;">
-    <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
-      <div style="display: flex; align-items: baseline; gap: 14px;">
-        <span style="font-family: 'Noto Serif KR', serif; font-size: 15px; color: #a68a4c; font-weight: 700;">08</span>
-        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 32px; color: #1f3d2e;">유튜브 · 인스타그램</h2>
+  <div id="channels" class="section section-alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">08</span>
+        <h2 class="section-title">유튜브 · 인스타그램</h2>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px;">
-        <a href="https://youtube.com/channel/UCO0v5uNedY-NwC7d8dLXNJw" style="display: flex; align-items: center; gap: 18px; padding: 26px; background: #1f241f; border-radius: 14px;">
-          <div style="flex: 0 0 48px; width: 48px; height: 48px; border-radius: 12px; background: #ff3b30; display: flex; align-items: center; justify-content: center;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M10 8.5v7l6-3.5-6-3.5z" fill="#ffffff" stroke="none"/><rect x="2" y="5" width="20" height="14" rx="4"/></svg>
+      <div class="grid grid-3" style="margin-bottom: 20px;">
+        <a href="https://youtube.com/channel/UCO0v5uNedY-NwC7d8dLXNJw" class="channel-card">
+          <div class="channel-icon" style="background: #ff3b30;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M10 8.5v7l6-3.5-6-3.5z" fill="#ffffff" stroke="none"/><rect x="2" y="5" width="20" height="14" rx="4"/></svg>
           </div>
-          <div style="display: flex; flex-direction: column; gap: 4px;">
-            <span style="font-size: 16px; font-weight: 700; color: #ffffff;">유튜브</span>
-            <span style="font-size: 13px; color: #c9c6ba;">레슨 영상 보러 가기</span>
-          </div>
+          <div><div class="channel-name">유튜브</div><div class="channel-sub">레슨 영상 보러 가기</div></div>
         </a>
-        <a href="https://www.instagram.com/kwang_golf_" style="display: flex; align-items: center; gap: 18px; padding: 26px; background: #1f241f; border-radius: 14px;">
-          <div style="flex: 0 0 48px; width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af); display: flex; align-items: center; justify-content: center;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#ffffff" stroke="none"/></svg>
+        <a href="https://www.instagram.com/kwang_golf_" class="channel-card">
+          <div class="channel-icon" style="background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#ffffff" stroke="none"/></svg>
           </div>
-          <div style="display: flex; flex-direction: column; gap: 4px;">
-            <span style="font-size: 16px; font-weight: 700; color: #ffffff;">@kwang_golf_</span>
-            <span style="font-size: 13px; color: #c9c6ba;">레슨 일상 보러 가기</span>
-          </div>
+          <div><div class="channel-name">@kwang_golf_</div><div class="channel-sub">레슨 일상 보러 가기</div></div>
         </a>
-        <div style="display: flex; align-items: center; gap: 18px; padding: 26px; background: rgba(31,36,31,0.5); border: 1px dashed #b9b199; border-radius: 14px;">
-          <div style="flex: 0 0 48px; width: 48px; height: 48px; border-radius: 12px; background: #3c3f38; display: flex; align-items: center; justify-content: center;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff"><path d="M16.5 2c.4 2.2 1.9 3.9 4 4.4v3.1c-1.4 0-2.8-.4-4-1.2v6.9c0 3.5-2.8 6.3-6.3 6.3S3.9 18.7 3.9 15.2 6.7 8.9 10.2 8.9c.4 0 .8 0 1.2.1v3.2c-.4-.1-.8-.2-1.2-.2-1.7 0-3.1 1.4-3.1 3.1s1.4 3.1 3.1 3.1 3.2-1.3 3.2-3v-13h3.1z"/></svg>
+        <div class="channel-card soon">
+          <div class="channel-icon" style="background: #3c3f38;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff"><path d="M16.5 2c.4 2.2 1.9 3.9 4 4.4v3.1c-1.4 0-2.8-.4-4-1.2v6.9c0 3.5-2.8 6.3-6.3 6.3S3.9 18.7 3.9 15.2 6.7 8.9 10.2 8.9c.4 0 .8 0 1.2.1v3.2c-.4-.1-.8-.2-1.2-.2-1.7 0-3.1 1.4-3.1 3.1s1.4 3.1 3.1 3.1 3.2-1.3 3.2-3v-13h3.1z"/></svg>
           </div>
-          <div style="display: flex; flex-direction: column; gap: 4px;">
-            <span style="font-size: 16px; font-weight: 700; color: #565a52;">틱톡</span>
-            <span style="font-size: 13px; color: #8a8368;">주소 업데이트 예정</span>
-          </div>
+          <div><div class="channel-name" style="color: #565a52;">틱톡</div><div class="channel-sub" style="color: #8a8368;">주소 업데이트 예정</div></div>
         </div>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;">
-        <div style="aspect-ratio: 1 / 1; border: 1px dashed #b9b199; border-radius: 10px; background: #ffffff; display: flex; align-items: center; justify-content: center; color: #8a8368; font-size: 13px;">[SNS 게시물]</div>
-        <div style="aspect-ratio: 1 / 1; border: 1px dashed #b9b199; border-radius: 10px; background: #ffffff; display: flex; align-items: center; justify-content: center; color: #8a8368; font-size: 13px;">[SNS 게시물]</div>
-        <div style="aspect-ratio: 1 / 1; border: 1px dashed #b9b199; border-radius: 10px; background: #ffffff; display: flex; align-items: center; justify-content: center; color: #8a8368; font-size: 13px;">[SNS 게시물]</div>
-        <div style="aspect-ratio: 1 / 1; border: 1px dashed #b9b199; border-radius: 10px; background: #ffffff; display: flex; align-items: center; justify-content: center; color: #8a8368; font-size: 13px;">[SNS 게시물]</div>
+      <div class="sns-grid">
+        <div class="sns-item">[SNS 게시물]</div>
+        <div class="sns-item">[SNS 게시물]</div>
+        <div class="sns-item">[SNS 게시물]</div>
+        <div class="sns-item">[SNS 게시물]</div>
       </div>
     </div>
   </div>
 
   <!-- 09. FAQ -->
-  <div id="faq" style="width: 100%; box-sizing: border-box; padding: 88px 32px;">
-    <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
-      <div style="display: flex; align-items: baseline; gap: 14px;">
-        <span style="font-family: 'Noto Serif KR', serif; font-size: 15px; color: #a68a4c; font-weight: 700;">09</span>
-        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 32px; color: #1f3d2e;">자주 묻는 질문</h2>
+  <div id="faq" class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">09</span>
+        <h2 class="section-title">자주 묻는 질문</h2>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 14px;">
-        <div style="padding: 22px 26px; background: #efece1; border-radius: 12px;">
-          <div style="display: flex; gap: 12px; font-size: 15px; font-weight: 700; color: #1f241f;"><span style="color: #a68a4c;">Q.</span><span>골프를 처음 시작하는데 레슨이 가능한가요?</span></div>
-          <div style="display: flex; gap: 12px; margin-top: 8px; font-size: 14px; line-height: 1.7; color: #565a52;"><span style="color: transparent;">Q.</span><span>[답변을 입력하세요 — 예: 네, 왕초보 회원님도 많이 지도하고 있습니다.]</span></div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div class="faq-item">
+          <div class="faq-q"><span style="color: #a68a4c;">Q.</span><span>골프를 처음 시작하는데 레슨이 가능한가요?</span></div>
+          <div class="faq-a"><span style="color: transparent;">Q.</span><span>[답변을 입력하세요 — 예: 네, 왕초보 회원님도 많이 지도하고 있습니다.]</span></div>
         </div>
-        <div style="padding: 22px 26px; background: #efece1; border-radius: 12px;">
-          <div style="display: flex; gap: 12px; font-size: 15px; font-weight: 700; color: #1f241f;"><span style="color: #a68a4c;">Q.</span><span>타석비(스크린룸 이용료)는 어떻게 결제하나요?</span></div>
-          <div style="display: flex; gap: 12px; margin-top: 8px; font-size: 14px; line-height: 1.7; color: #565a52;"><span style="color: transparent;">Q.</span><span>[답변을 입력하세요 — 레슨비와 별도 결제 방식을 안내해주세요.]</span></div>
+        <div class="faq-item">
+          <div class="faq-q"><span style="color: #a68a4c;">Q.</span><span>타석비(스크린룸 이용료)는 어떻게 결제하나요?</span></div>
+          <div class="faq-a"><span style="color: transparent;">Q.</span><span>[답변을 입력하세요 — 레슨비와 별도 결제 방식을 안내해주세요.]</span></div>
         </div>
-        <div style="padding: 22px 26px; background: #efece1; border-radius: 12px;">
-          <div style="display: flex; gap: 12px; font-size: 15px; font-weight: 700; color: #1f241f;"><span style="color: #a68a4c;">Q.</span><span>레슨복이나 개인 장비를 준비해야 하나요?</span></div>
-          <div style="display: flex; gap: 12px; margin-top: 8px; font-size: 14px; line-height: 1.7; color: #565a52;"><span style="color: transparent;">Q.</span><span>[답변을 입력하세요]</span></div>
+        <div class="faq-item">
+          <div class="faq-q"><span style="color: #a68a4c;">Q.</span><span>레슨복이나 개인 장비를 준비해야 하나요?</span></div>
+          <div class="faq-a"><span style="color: transparent;">Q.</span><span>[답변을 입력하세요]</span></div>
         </div>
-        <div style="padding: 22px 26px; background: #efece1; border-radius: 12px;">
-          <div style="display: flex; gap: 12px; font-size: 15px; font-weight: 700; color: #1f241f;"><span style="color: #a68a4c;">Q.</span><span>예약 변경이나 스케줄 조율이 가능한가요?</span></div>
-          <div style="display: flex; gap: 12px; margin-top: 8px; font-size: 14px; line-height: 1.7; color: #565a52;"><span style="color: transparent;">Q.</span><span>[답변을 입력하세요 — 예약 및 이용 안내 섹션과 함께 확인해주세요.]</span></div>
+        <div class="faq-item">
+          <div class="faq-q"><span style="color: #a68a4c;">Q.</span><span>예약 변경이나 스케줄 조율이 가능한가요?</span></div>
+          <div class="faq-a"><span style="color: transparent;">Q.</span><span>[답변을 입력하세요 — 예약 및 이용 안내 섹션과 함께 확인해주세요.]</span></div>
         </div>
       </div>
     </div>
   </div>
 
   <!-- 10. Contact -->
-  <div id="contact" style="width: 100%; box-sizing: border-box; padding: 88px 32px; background: #1f3d2e;">
-    <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
-      <div style="display: flex; align-items: baseline; gap: 14px;">
-        <span style="font-family: 'Noto Serif KR', serif; font-size: 15px; color: #a68a4c; font-weight: 700;">10</span>
-        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 32px; color: #ffffff;">레슨 문의</h2>
+  <div id="contact" class="section section-dark">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">10</span>
+        <h2 class="section-title on-dark">레슨 문의</h2>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;">
-        <a href="#" class="cta" style="display: flex; flex-direction: column; gap: 14px; padding: 28px; background: #a68a4c; border-radius: 14px;">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M4 4h16v12H8l-4 4V4z"/></svg>
-          <div style="font-size: 15px; font-weight: 700; color: #ffffff;">카카오 오픈채팅</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.85);">[카카오 오픈프로필 링크]</div>
+      <div class="grid grid-3">
+        <a href="#" class="contact-card primary cta">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M4 4h16v12H8l-4 4V4z"/></svg>
+          <div class="contact-label">카카오 오픈채팅</div>
+          <div class="contact-value">[카카오 오픈프로필 링크]</div>
         </a>
-        <div style="display: flex; flex-direction: column; gap: 14px; padding: 28px; border: 1px solid rgba(255,255,255,0.25); border-radius: 14px;">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2z"/></svg>
-          <div style="font-size: 15px; font-weight: 700; color: #ffffff;">전화 문의</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.75);">[연락처 입력]</div>
+        <div class="contact-card outline">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2z"/></svg>
+          <div class="contact-label">전화 문의</div>
+          <div class="contact-value">[연락처 입력]</div>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 14px; padding: 28px; border: 1px solid rgba(255,255,255,0.25); border-radius: 14px;">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-          <div style="font-size: 15px; font-weight: 700; color: #ffffff;">레슨 장소</div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.75);">고덕 개인스튜디오</div>
+        <div class="contact-card outline">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          <div class="contact-label">레슨 장소</div>
+          <div class="contact-value">고덕 개인스튜디오</div>
         </div>
       </div>
-      <div style="display: flex; gap: 20px; align-items: center; padding: 24px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.2); border-radius: 14px;">
-        <div style="flex: 0 0 220px; height: 140px; border: 1px dashed rgba(255,255,255,0.35); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.6); font-size: 13px;">[지도 이미지]</div>
+      <div class="map-row">
+        <div class="map-photo">[지도 이미지]</div>
         <div style="display: flex; flex-direction: column; gap: 6px;">
-          <span style="font-size: 15px; font-weight: 700; color: #ffffff;">오시는 길</span>
-          <span style="font-size: 14px; color: rgba(255,255,255,0.75);">[상세 주소를 입력하세요]</span>
-          <span style="font-size: 13px; color: rgba(255,255,255,0.6);">[주차 안내 — 예: 건물 내 주차 가능, 2시간 무료]</span>
+          <span style="font-size: 14px; font-weight: 700; color: #ffffff;">오시는 길</span>
+          <span style="font-size: 13px; color: rgba(255,255,255,0.75);">[상세 주소를 입력하세요]</span>
+          <span style="font-size: 12px; color: rgba(255,255,255,0.6);">[주차 안내 — 예: 건물 내 주차 가능, 2시간 무료]</span>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Footer -->
-  <div style="width: 100%; box-sizing: border-box; padding: 28px 32px; background: #17281e;">
-    <div style="max-width: 1160px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
-      <span style="font-size: 13px; color: #9fa89c;">© [연도] 황광태 골프레슨. All rights reserved.</span>
-      <span style="font-size: 13px; color: #9fa89c;">[사업자 정보 또는 부가 안내 문구]</span>
+  <div class="footer">
+    <div class="wrap footer-inner">
+      <span class="footer-text">© [연도] 황광태 골프레슨. All rights reserved.</span>
+      <span class="footer-text">[사업자 정보 또는 부가 안내 문구]</span>
     </div>
   </div>
 
